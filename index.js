@@ -49,15 +49,13 @@ const questions = [
         name: 'email',
         message: 'enter your email address',
     },
-].then((response)=>
-console.log(response)
-);
+]
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    const content = typeof date ==='string' ? data : JSON.stringify(data, null, 2);
+    const content = typeof data ==='string' ? data : JSON.stringify(data, null, 2);
 
-    fs.writeFile(fileName, content, 'utf8', (err) =>{
+    fs.writeFile(fileName, content, (err) =>{
         if(err){
             console.error('error making file: ', err);
         }
@@ -71,8 +69,8 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer
     .prompt(questions)
-    .then((responses)=>{
-        const readMEContent = generateReadMEContent(responses);
+    .then((response)=>{
+        const readMEContent = generateReadMEContent(response);
         writeToFile('README.md', readMEContent);
     })
     .catch((error)=>{
@@ -110,8 +108,7 @@ function generateReadMEContent(responses) {
   This project is licensed under the ${responses.licenses} license.
   
   ## Questions
-  For any questions about the project, please feel free to reach out to [${responses.github}](https://github.com/${responses.github}) or contact via email at ${responses.email}.
-  `;
+  For any questions about the project, please feel free to reach out to [${responses.github}](https://github.com/${responses.github}) or contact via email at ${responses.email}.`;
   }
 // Function call to initialize app
 init();

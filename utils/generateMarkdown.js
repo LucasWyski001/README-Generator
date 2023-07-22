@@ -22,7 +22,7 @@ function renderLicenseLink(license) {
     break;
     case 'Apache': licenseLink ='https://www.apache.org/licenses/LICENSE-2.0.html';
     break;
-    default: licenseLink = '';
+    default: licenseLink = 'https://img.shields.io/badge/license-Unlicense-blue.svg';
     break;
   }
   return licenseLink;
@@ -31,15 +31,48 @@ function renderLicenseLink(license) {
 // TODO: Create a function that returns the license section of README
 // If there is no license, return an empty string
 function renderLicenseSection(license) {
-  let LicenseSection;
-  
+  let LicenseSection ='';
+
+  if(license != 'none'){
+    LicenseSection += "##License\n";
+    LicenseSection += "See the" + renderLicenseLink(license) + "in order to get more information for the license\n";
+  }
+  return LicenseSection;
 }
 
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.title}
+  
+  ## Description
+  ${data.Description}
+  
+  ## Table of Contents
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [Tests](#tests)
+  - [License](#license)
+  - [Questions](#questions)
+  
+  ## Installation
+  ${data.Installation}
+  
+  ## Usage
+  ${data.usage}
+  
+  ## Contributing
+  ${data.contributing}
+  
+  ## Tests
+  ${data.tests}
+  
+  ## License
+  This project is licensed under the ${data.licenses} license.
+  
+  ## Questions
+  For any questions about the project, please feel free to reach out to [${data.github}](https://github.com/${data.github}) or contact via email at ${data.email}.`;
 
-`;
 }
 
 module.exports = generateMarkdown;
