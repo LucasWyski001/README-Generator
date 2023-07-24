@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
-const fs = require('fs')
+const fs = require('fs');
+const generateMarkdown = require('./utils/generateMarkdown');
 // TODO: Create an array of questions for user input
 const questions = [
     {
@@ -35,7 +36,7 @@ const questions = [
     },
     {
         type: 'list',
-        name: 'licenses',
+        name: 'license',
         message: 'What type of license do you want for your project',
         choices: ['MIT', 'GPLv3', 'Apache', 'unlicense', 'BSD'],
     },
@@ -69,46 +70,12 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer
     .prompt(questions)
-    .then((response)=>{
-        const readMEContent = generateReadMEContent(response);
-        writeToFile('README.md', readMEContent);
+    .then((data)=>{
+        writeToFile('README.md', generateMarkdown(data));
     })
     .catch((error)=>{
         console.error('error:', error);
     })
 }
-function generateReadMEContent(responses) {
-    return `
-  # ${responses.title}
-  
-  ## Description
-  ${responses.Description}
-  
-  ## Table of Contents
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [Tests](#tests)
-  - [License](#license)
-  - [Questions](#questions)
-  
-  ## Installation
-  ${responses.Installation}
-  
-  ## Usage
-  ${responses.usage}
-  
-  ## Contributing
-  ${responses.contributing}
-  
-  ## Tests
-  ${responses.tests}
-  
-  ## License
-  This project is licensed under the ${responses.licenses} license.
-  
-  ## Questions
-  For any questions about the project, please feel free to reach out to [${responses.github}](https://github.com/${responses.github}) or contact via email at ${responses.email}.`;
-  }
 // Function call to initialize app
 init();

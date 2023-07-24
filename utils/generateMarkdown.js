@@ -4,7 +4,7 @@
 
 function renderLicenseBadge(license) {
   let badge ='';
-  if(license != none){
+  if(license != 'Unlicensed'){
     badge = "![License Badge](https://shields.io/badge/license-" + license + "-green)";
   }
   return badge;
@@ -16,15 +16,17 @@ function renderLicenseLink(license) {
   let licenseLink;
 
   switch(license){
-    case 'MIT': licenseLink = '[![MIT License](https://img.shields.io/badge/MIT_LICENSE-blue)](https://opensource.org/licenses/MIT)';
+    case 'MIT': licenseLink = 'https://mit-license.org/';
     break;
     case 'BSD': licenseLink = 'https://opensource.org/licenses/BSD-3Clause';
     break;
-    case 'GPL': licenseLink = '[![GNU General Public License V3.0](https://img.shields.io/badge/GNU_LICENSE_3.0-blue)](https://opensource.org/license/gpl-3-0/)';
+    case 'GPL': licenseLink = 'https://www.gnu.org/licenses/gpl-3.0.en.html';
     break;
-    case 'Apache': licenseLink ='[![Apache License 2.0](https://img.shields.io/badge/APACHE_LICENSE_2.0-blue)](https://opensource.org/license/apache-2-0/)';
+    case 'Apache': licenseLink ='https://www.apache.org/licenses/LICENSE-2.0.html';
     break;
-    default: licenseLink = 'https://img.shields.io/badge/license-Unlicense-blue.svg';
+    case 'Unlicensed': licenseLink = '';
+    break;
+    default: licenseLink = '';
     break;
   }
   return licenseLink;
@@ -35,9 +37,8 @@ function renderLicenseLink(license) {
 function renderLicenseSection(license) {
   let LicenseSection ='';
 
-  if(license != 'none'){
-    LicenseSection += "##License\n";
-    LicenseSection += "See the" + renderLicenseLink(license) + "in order to get more information for the license\n";
+  if(license != 'Unlicensed'){
+    LicenseSection += "See " + renderLicenseLink(license) + "to learn more";
   }
   return LicenseSection;
 }
@@ -45,6 +46,7 @@ function renderLicenseSection(license) {
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.title}
+  ${renderLicenseBadge(data.license)}
   ## Description
   ${data.Description}
   
@@ -69,7 +71,7 @@ function generateMarkdown(data) {
   ${data.tests}
   
   ## License
-  This project is licensed under the ${renderLicenseSection(data.license)} license.
+  ${renderLicenseSection(data.license)}
   
   ## Questions
   For any questions about the project, please feel free to reach out to [${data.github}](https://github.com/${data.github}) or contact via email at ${data.email}.`;
