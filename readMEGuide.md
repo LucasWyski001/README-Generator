@@ -14,7 +14,7 @@ If your README is long, add a table of contents to make it easy for users to fin
  https://lucaswyski001.github.io/password-generator/
 
  ## image of site
- ![Alt text](Assets/03-javascript-homework-demo.png)
+ ![Alt text](imgREADMEGEN.jpg)
 
 
 N/A
